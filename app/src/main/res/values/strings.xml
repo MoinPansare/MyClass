@@ -14,4 +14,5 @@
     <string name="drawer_close">CLOSE</string>
     <string name="Home_string">Home</string>
     <string name="main_page_title">Live Feed</string>
+    <string name="title_activity_assignments">assignments</string>
 </resources>

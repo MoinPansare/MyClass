@@ -2,6 +2,7 @@ package connect.qaagility.com.myclass;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +26,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickLicklistener {
 
     public static String file_Name = "File_Name";
     private static String Key_User_Learned_Drawer = "userLearnedDrawer";
@@ -66,7 +69,7 @@ public class NavigationDrawerFragment extends Fragment {
         recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
         AllData = getData();
         myAdapter = new NavigationDrawerRecyclerViewAdapter(getActivity(),AllData);
-
+        myAdapter.setMyClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myAdapter);
         Log.d("CountMoin",AllData.isEmpty()+"");
@@ -135,26 +138,7 @@ public class NavigationDrawerFragment extends Fragment {
         return (sp.getString(Key,Value)).toString();
     }
 
-//    private static List<NavigationDrawerData> getData(){
-//
-//        List<NavigationDrawerData> data = Collections.emptyList();
-//        int[] icons = {R.drawable.user_image,R.drawable.user_image,R.drawable.user_image,R.drawable.user_image,R.drawable.user_image};
-//        String[] titles = {"News Board","Assignments","Messages","Notifications","Photos"};
-//
-//        for(int i=0;i<icons.length && i<titles.length;i++)
-//        {
-//            NavigationDrawerData current = new NavigationDrawerData();
-//            try{
-//                current.imageId = (int)icons[i];
-//                current.title = titles[i].toString();
-//                data.add(current);
-//            }catch(Exception e){
-//                Log.d("Found Some MOINPANSARE","Found Some Error MOINPANSARE");
-//            }
-//
-//        }
-//        return data;
-//    }
+
 
     public static List<NavigationDrawerData> getData() {
         //load only static data inside a drawer
@@ -171,4 +155,10 @@ public class NavigationDrawerFragment extends Fragment {
         return data;
     }
 
+    @Override
+    public void ItemClicked(View view, int position) {
+//        Toast.makeText(getActivity(),position+"",Toast.LENGTH_SHORT).show();
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+        startActivity(new Intent(getActivity(), assignments.class));
+    }
 }

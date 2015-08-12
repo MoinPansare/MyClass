@@ -1,6 +1,6 @@
 package connect.qaagility.com.myclass;
 
-import android.support.v4.app.NavUtils;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,26 +8,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class about_us extends AppCompatActivity {
+public class assignments extends AppCompatActivity {
 
     private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
+        setContentView(R.layout.activity_assignments);
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("About Us");
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Assignments");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_about_us, menu);
+        getMenuInflater().inflate(R.menu.menu_assignments, menu);
         return true;
     }
 
@@ -40,11 +38,9 @@ public class about_us extends AppCompatActivity {
 
         switch(id){
             case R.id.action_settings : Toast.makeText(this, "You Selected Settings", Toast.LENGTH_LONG).show();break;
+            case R.id.action_about_us : startActivity(new Intent(this,about_us.class));break;
             case R.id.action_logout : Toast.makeText(this,"You Selected Logout",Toast.LENGTH_SHORT).show();break;
-            case android.R.id.home : finish();
-//                NavUtils.navigateUpFromSameTask(this);
-                break;
-            default: Toast.makeText(this,"Fuck You", Toast.LENGTH_SHORT).show();break;
+            default: Toast.makeText(this,"Fuck You",Toast.LENGTH_SHORT).show();break;
         }
 
         return super.onOptionsItemSelected(item);

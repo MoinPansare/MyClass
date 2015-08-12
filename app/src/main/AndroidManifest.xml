@@ -19,7 +19,13 @@
         <activity
             android:name=".about_us"
             android:label="@string/title_activity_about_us" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".MainActivity" />-->
+        </activity>
+        <activity
+            android:name=".assignments"
+            android:label="@string/title_activity_assignments" >
         </activity>
     </application>
 
