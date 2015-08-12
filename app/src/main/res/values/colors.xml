@@ -7,4 +7,5 @@
     <color name="important_Message">#EF5350</color>
     <color name="my_generated_text_color">#B14AED</color>
     <color name="fragment_Navigation_Drawer_Background_Color">#3B8270</color>
+    <color name="row_elevation_color">#6FC9B2</color>
 </resources>
