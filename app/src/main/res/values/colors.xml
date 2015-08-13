@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#F4493C</color>
-    <color name="primaryColorDark">#CC3C31</color>
-    <color name="backgroundColor_Selected">#575656</color>
+    <color name="primaryColor">#673AB7</color>
+    <color name="primaryColorDark">#512DA8</color>
+    <!--<color name="backgroundColor_Selected">#575656</color>-->
+    <color name="backgroundColor_Selected">#FFFFFF</color>
     <color name="accentColor">#E91E63</color>
     <color name="important_Message">#EF5350</color>
     <color name="my_generated_text_color">#B14AED</color>
-    <color name="fragment_Navigation_Drawer_Background_Color">#3B8270</color>
-    <color name="row_elevation_color">#6FC9B2</color>
+    <!--<color name="fragment_Navigation_Drawer_Background_Color">#3B8270</color>-->
+    <!--<color name="fragment_Navigation_Drawer_Background_Color">#575656</color>-->
+    <color name="fragment_Navigation_Drawer_Background_Color">#C9E8F2</color>
+    <!--<color name="row_elevation_color">#6FC9B2</color>-->
+    <color name="row_elevation_color">#B6B6B6</color>
+    <!--<color name=""-->
+
+
+    <color name="primaryColor_1">#673AB7</color>
+    <color name="primaryColorDark_1">#512DA8</color>
+    <color name="light_primary">#D1C4E9</color>
+    <color name="text_and_icons">#FFFFFF</color>
+    <color name="accentColor_2">#FF5722</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="dividerColor">#B6B6B6</color>
+
 </resources>

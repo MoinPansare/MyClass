@@ -4,14 +4,25 @@ import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private RecyclerView mainRecyclerView;
+
+    private List<NewsFeedsData> AllData = Collections.emptyList();
+    private LiveFeedsAdapter myAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationDrawerFragment navFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigationDrawer_fragment);
         navFragment.setUp(R.id.navigationDrawer_fragment,(DrawerLayout) findViewById(R.id.drawerLayout), toolbar);
 
+        mainRecyclerView = (RecyclerView)findViewById(R.id.rv);
+        AllData = getData();
+
+        myAdapter = new LiveFeedsAdapter(this,AllData);
+        mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainRecyclerView.setAdapter(myAdapter);
 
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,5 +71,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static List<NewsFeedsData> getData() {
+        //load only static data inside a drawer
+        List<NewsFeedsData> data = new ArrayList<>();
+        String[] titles = {"News Board","Assignments","Messages","Notifications","Photos"};
+        String[] dates = {"1/8/2015","2/8/2015","3/8/2015","4/8/2015","5/8/2015"};
+        String[] mainBody = {"This is Some Dummy Data Tp Prove Than At Times The Text Might Get Clipped Off And We Might Not Be Able To See The Rest Of The Content, but at times we can see actually what is intended for viewing, but at times we can see actually what is intended for viewing","Assignments","Messages","Notifications","Photos"};
+        String[] additional = {"News Board","Assignments","Messages","Notifications","Photos"};
+        String[] backGroundPriority = {"urgent","normal","normal","urgent","normal"};
+        for (int i = 0; i < 5; i++) {
+            NewsFeedsData current = new NewsFeedsData();
+            current.eventTitle = titles[i % titles.length];
+            current.AddedDate = dates[i % dates.length];
+            current.mainBody = mainBody[i % mainBody.length];
+            current.moreInfo = additional[i % additional.length];
+            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
+            data.add(current);
+        }
+
+        return data;
     }
 }
