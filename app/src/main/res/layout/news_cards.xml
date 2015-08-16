@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:transitionName="detail_title"
             android:id="@+id/card_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

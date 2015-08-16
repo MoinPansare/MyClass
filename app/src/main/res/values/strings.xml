@@ -15,4 +15,8 @@
     <string name="Home_string">Home</string>
     <string name="main_page_title">Live Feed</string>
     <string name="title_activity_assignments">assignments</string>
+    <string name="title_activity_image_screen">ImageScreen</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_activity_gallery">ActivityGallery</string>
+    <string name="title_activity_live_feed_detail">LiveFeedDetail</string>
 </resources>

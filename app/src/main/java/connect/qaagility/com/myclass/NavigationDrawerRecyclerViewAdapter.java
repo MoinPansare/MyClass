@@ -20,7 +20,7 @@ public class NavigationDrawerRecyclerViewAdapter extends RecyclerView.Adapter<Na
 
     List<NavigationDrawerData> data = Collections.emptyList();
     private LayoutInflater inflator;
-    private MyClickLicklistener var_ClickListener;
+    private MyClickListener var_ClickListener;
     private Context myContext;
 
     public NavigationDrawerRecyclerViewAdapter(Context context, List<NavigationDrawerData> data) {
@@ -29,8 +29,8 @@ public class NavigationDrawerRecyclerViewAdapter extends RecyclerView.Adapter<Na
         this.data = data;
     }
 
-    public void setMyClickListener(MyClickLicklistener clickLicklistener){
-        this.var_ClickListener = clickLicklistener;
+    public void setMyClickListener(MyClickListener clickListener){
+        this.var_ClickListener = clickListener;
     }
 
     @Override
@@ -71,12 +71,13 @@ public class NavigationDrawerRecyclerViewAdapter extends RecyclerView.Adapter<Na
             try{
                 var_ClickListener.ItemClicked(v,getAdapterPosition());
             }catch(Exception e){
+                Log.d("Exception New",e+"");
                 Toast.makeText(myContext,"Something is wrong",Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    public interface MyClickLicklistener{
+    public interface MyClickListener{
         public void ItemClicked(View view,int position);
     }
 }

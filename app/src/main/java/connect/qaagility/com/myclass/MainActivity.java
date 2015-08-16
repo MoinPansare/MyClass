@@ -1,21 +1,30 @@
 package connect.qaagility.com.myclass;
 
 import android.content.Intent;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import connect.qaagility.com.myclass.LiveFeedsAdapter.someListData;
+
+public class MainActivity extends AppCompatActivity implements someListData {
+
+    private static String dataArgs = "connect.qaagility.com.myclass.MyClass_Data_Args1";
 
     private Toolbar toolbar;
     private RecyclerView mainRecyclerView;
@@ -26,8 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -38,14 +53,33 @@ public class MainActivity extends AppCompatActivity {
         }
 
         NavigationDrawerFragment navFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigationDrawer_fragment);
-        navFragment.setUp(R.id.navigationDrawer_fragment,(DrawerLayout) findViewById(R.id.drawerLayout), toolbar);
+        navFragment.setUp(R.id.navigationDrawer_fragment,(DrawerLayout) findViewById(R.id.drawerLayout), toolbar ,"Live Feed");
 
         mainRecyclerView = (RecyclerView)findViewById(R.id.rv);
+
+
         AllData = getData();
 
         myAdapter = new LiveFeedsAdapter(this,AllData);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myAdapter.setsomeListData(this);
         mainRecyclerView.setAdapter(myAdapter);
+
+        mainRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            int y = 0;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+//                Log.d("new state",newState+"");
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+//                y=y+dy;
+//                Log.d("current Y", y + "");
+            }
+        });
 
     }
 
@@ -90,7 +124,50 @@ public class MainActivity extends AppCompatActivity {
             current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
             data.add(current);
         }
+        for (int i = 0; i < 5; i++) {
+            NewsFeedsData current = new NewsFeedsData();
+            current.eventTitle = titles[i % titles.length];
+            current.AddedDate = dates[i % dates.length];
+            current.mainBody = mainBody[i % mainBody.length];
+            current.moreInfo = additional[i % additional.length];
+            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
+            data.add(current);
+        }
+        for (int i = 0; i < 5; i++) {
+            NewsFeedsData current = new NewsFeedsData();
+            current.eventTitle = titles[i % titles.length];
+            current.AddedDate = dates[i % dates.length];
+            current.mainBody = mainBody[i % mainBody.length];
+            current.moreInfo = additional[i % additional.length];
+            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
+            data.add(current);
+        }
 
         return data;
+    }
+
+    @Override
+    public void InitiateActivityTransition(TextView textView,int position) {
+
+        final Intent newIntent = new Intent(this,LiveFeedDetail.class);
+        newIntent.putExtra(dataArgs,textView.getText().toString());
+
+
+        //for multiple
+
+//        Intent intent = new Intent(context, DetailsActivity.class);
+//        intent.putExtra(DetailsActivity.EXTRA_CONTACT, contact);
+//        Pair<View, String> p1 = Pair.create((View)ivProfile, "profile");
+//        Pair<View, String> p2 = Pair.create(vPalette, "palette");
+//        Pair<View, String> p3 = Pair.create((View)tvName, "text");
+//        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                makeSceneTransitionAnimation(this, p1, p2, p3);
+//        startActivity(intent, options.toBundle());
+
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(this, textView , "detail_title");
+
+        ActivityCompat.startActivity(this, newIntent, options.toBundle());
     }
 }

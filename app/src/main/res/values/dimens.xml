@@ -5,6 +5,6 @@
     <dimen name="navigation_drawer_top_view_height">160dp</dimen>
     <dimen name="image_Padding">10dp</dimen>
     <dimen name="nav_drawer_name_text_size">16sp</dimen>
-    <dimen name="app_bar_elevation">2dp</dimen>
+    <dimen name="app_bar_elevation">20dp</dimen>
     <dimen name="image_dimensions">60dp</dimen>
 </resources>

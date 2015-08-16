@@ -25,12 +25,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickListener {
+public class NavigationDrawerFragmentGallery extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickListener {
+
 
     private String myTitle;
 
-    public String file_Name = "file_name";
-    public String Key_User_Learned_Drawer = "userLearnedDrawer";
+    private String file_Name = "file_name_gallery";
+    private String Key_User_Learned_Drawer = "userLearnedDrawer_gallery";
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -46,8 +47,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     private List<NavigationDrawerData> AllData = Collections.emptyList();
 
-    public NavigationDrawerFragment() {
 
+    public NavigationDrawerFragmentGallery() {
+        // Required empty public constructor
     }
 
     @Override
@@ -62,21 +64,20 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-//        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
-        View view = (View) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_navigation_drawer_fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_navigation_drawer_fragment_gallery, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_gallery);
         AllData = getData();
         myAdapter = new NavigationDrawerRecyclerViewAdapter(getActivity(), AllData);
         myAdapter.setMyClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myAdapter);
         return view;
+
     }
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar, String myTitle) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar,String myTitle) {
 
         this.myTitle = myTitle;
         containerView = (View) getActivity().findViewById(fragmentId);
@@ -154,7 +155,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         return data;
     }
 
-    @Override
     public void ItemClicked(View view, int position) {
 
         mDrawerLayout.closeDrawer(Gravity.LEFT);
@@ -180,11 +180,11 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 break;
 
             default:
-                Toast.makeText(getActivity(), "Not Created Yet", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Not Created Yet",Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void hideDrawer(){
+    public void hideTheDrawer() {
         mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
 }
