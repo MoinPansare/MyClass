@@ -87,7 +87,7 @@ public class LiveFeedsAdapter extends RecyclerView.Adapter<LiveFeedsAdapter.Live
     }
 
     public interface someListData {
-        public void InitiateActivityTransition(TextView textView,int position);
+        public void InitiateActivityTransition(TextView textView,View view,TextView dateTextView,TextView detailTextView,int position);
     }
 
     public class LiveDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -117,19 +117,20 @@ public class LiveFeedsAdapter extends RecyclerView.Adapter<LiveFeedsAdapter.Live
 //                    final Intent intent = new Intent(myContext, LiveFeedDetail.class);
 
                     final TextView textSelected = (TextView) v.findViewById(R.id.card_title_text_view);
-
+                    final View selectedView = v;
+                    final TextView dateTextFeild = (TextView)v.findViewById(R.id.card_date_text_view);
+                    final TextView detailTextView = (TextView)v.findViewById(R.id.card_mainBody_textView);
 
 //                    ActivityOptionsCompat options = ActivityOptionsCompat.
 //                            makeSceneTransitionAnimation((Activity) myContext, textSelected , "detail_title");
 //
 //                    ActivityCompat.startActivity(myContext, intent, options.toBundle());
 
-                    my_someListData.InitiateActivityTransition(textSelected,view_position);
+                    my_someListData.InitiateActivityTransition(textSelected,selectedView,dateTextFeild,detailTextView,view_position);
 
                 }
             });
         }
-
 
         @Override
         public void onClick(View v) {

@@ -1,24 +1,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="connect.qaagility.com.myclass.LiveFeedDetail">
+    tools:context="connect.qaagility.com.myclass.LiveFeedDetail"
+    android:id="@+id/layout_background">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar"
-        android:elevation="4dp"/>
+        android:elevation="@dimen/app_bar_elevation"/>
 
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:textSize="20sp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/app_bar"
-        android:transitionName="detail_title"
-        android:text="@string/hello_world"
+        android:transitionName="detail_view"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="#00000000">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateTextView"
+            android:textSize="20sp"
+            android:transitionName="detail_date"
+            android:text="5/8/2015"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:textSize="20sp"
+            android:transitionName="detail_title"
+            android:text="placeHolder"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:id="@+id/detailTextView"
+            android:layout_below="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:transitionName="detail_body"
+            android:text="Some Text Here"
+            android:textSize="16sp"
+            />
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

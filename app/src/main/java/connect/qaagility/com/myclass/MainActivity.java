@@ -1,8 +1,10 @@
 package connect.qaagility.com.myclass;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,26 +150,38 @@ public class MainActivity extends AppCompatActivity implements someListData {
     }
 
     @Override
-    public void InitiateActivityTransition(TextView textView,int position) {
+    public void InitiateActivityTransition(TextView textView,View viewSelected,TextView dateTextView,TextView detailTextView,int position) {
 
         final Intent newIntent = new Intent(this,LiveFeedDetail.class);
-        newIntent.putExtra(dataArgs,textView.getText().toString());
+        newIntent.putExtra(dataArgs+"title",textView.getText().toString());
+        newIntent.putExtra(dataArgs+"date",dateTextView.getText().toString());
+        newIntent.putExtra(dataArgs+"mainBody",detailTextView.getText().toString());
+
+        ColorDrawable viewColor = (ColorDrawable) viewSelected.getBackground();
+//        Toast.makeText(this,viewColor+"",Toast.LENGTH_SHORT).show();
+        int colorId = viewColor.getColor();
+
+        newIntent.putExtra(dataArgs+"color",colorId);
+//        newIntent.putExtra(dataArgs+"color",viewColor.toString());
 
 
         //for multiple
 
 //        Intent intent = new Intent(context, DetailsActivity.class);
 //        intent.putExtra(DetailsActivity.EXTRA_CONTACT, contact);
-//        Pair<View, String> p1 = Pair.create((View)ivProfile, "profile");
-//        Pair<View, String> p2 = Pair.create(vPalette, "palette");
+        Pair<View, String> p1 = Pair.create(viewSelected, "detail_view");
+//        Pair<View, String> p2 = Pair.create((View)textView, "detail_title");
+//        Pair<View, String> p3 = Pair.create((View)dateTextView, "detail_date");
+//        Pair<View, String> p4 = Pair.create((View)detailTextView, "detail_body");
+
 //        Pair<View, String> p3 = Pair.create((View)tvName, "text");
-//        ActivityOptionsCompat options = ActivityOptionsCompat.
-//                makeSceneTransitionAnimation(this, p1, p2, p3);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this,p1);
 //        startActivity(intent, options.toBundle());
 
 
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(this, textView , "detail_title");
+//        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                            makeSceneTransitionAnimation(this, textView , "detail_title");
 
         ActivityCompat.startActivity(this, newIntent, options.toBundle());
     }
