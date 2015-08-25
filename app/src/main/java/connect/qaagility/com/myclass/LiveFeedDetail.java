@@ -47,10 +47,8 @@ public class LiveFeedDetail extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Detail");
+        getSupportActionBar().setTitle("Detail");
 
-//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.show_gradually);
-//        toolbar.startAnimation(animation);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,8 +101,6 @@ public class LiveFeedDetail extends AppCompatActivity {
 //                    Toast.makeText(this,android.os.Build.VERSION.SDK_INT+"MOIN",Toast.LENGTH_SHORT).show();
                     finish();
                 }
-//                Animation animation = AnimationUtils.loadAnimation(this, R.anim.hide_gradually);
-//                toolbar.startAnimation(animation);
                 break;
             default: Toast.makeText(this,"Fuck You",Toast.LENGTH_SHORT).show();break;
         }

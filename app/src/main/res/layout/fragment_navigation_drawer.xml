@@ -16,6 +16,7 @@
             android:id="@+id/top_View"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/navigation_drawer_top_view_height"
+            android:transitionName="user_page"
             android:background="@drawable/bg3">
 
             <RelativeLayout
@@ -23,6 +24,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:transitionName="child_image_transition"
                     android:id="@+id/child_image"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -36,6 +38,7 @@
                     android:layout_alignParentStart="true" />
 
                 <TextView
+                    android:transitionName="child_name_transition"
                     android:id="@+id/child_name"
                     android:layout_width="wrap_content"
                     android:layout_height="67dp"

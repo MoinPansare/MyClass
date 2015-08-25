@@ -24,4 +24,10 @@
     <color name="secondary_text">#727272</color>
     <color name="dividerColor">#B6B6B6</color>
 
+
+    <color name="greenBackground">#C8E6C9</color>
+    <color name="blueBackground">#B2DFDB</color>
+
+
+
 </resources>

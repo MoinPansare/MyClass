@@ -4,19 +4,34 @@ import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
-public class ActivityGallery extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class ActivityGallery extends AppCompatActivity implements GalleryMainRowAdapter.galleryItemSelected{
 
     private Toolbar toolbar;
+    private RecyclerView gallery_recyclerView;
+    private List<GalleryData> AllData = Collections.emptyList();
+    private GalleryMainRowAdapter myAdapter;
 
     private NavigationDrawerFragmentGallery navFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_gallery);
 
@@ -31,7 +46,19 @@ public class ActivityGallery extends AppCompatActivity {
         navFragment = (NavigationDrawerFragmentGallery)getSupportFragmentManager().findFragmentById(R.id.navigationDrawer_fragment_gallery);
         navFragment.setUp(R.id.navigationDrawer_fragment_gallery, (DrawerLayout) findViewById(R.id.drawerLayout_gallery), toolbar, "Gallery");
 
+        gallery_recyclerView = (RecyclerView)findViewById(R.id.gallery_recyclerView);
 
+        AllData = getData();
+
+        myAdapter = new GalleryMainRowAdapter(this,AllData);
+        myAdapter.setMy_gallertItemSelected(this);
+        gallery_recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        gallery_recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+//        gallery_recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
+//        myAdapter.setsomeListData(this);
+
+        gallery_recyclerView.setAdapter(myAdapter);
     }
 
     @Override
@@ -63,5 +90,51 @@ public class ActivityGallery extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static List<GalleryData> getData() {
+        //load only static data inside a drawer
+        List<GalleryData> data = new ArrayList<>();
+        String[] titles = {"New Year","Chrismas","Diwali","Holi","Ramzan","Ganpati Vacations"};
+        String primaryUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Queen-Elizabeth-School.jpg/320px-Queen-Elizabeth-School.jpg";
+        String secondryUrl = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash1/t5/277110_261934653038_1251853370_n.jpg";
+        String terniaryUrl = "http://media-cache-ak0.pinimg.com/736x/c5/65/9b/c5659b2b6cd5a88ec785b09e49efcfec.jpg";
+
+        for (int i = 0; i < 5; i++) {
+            GalleryData current = new GalleryData();
+            current.eventTitle = titles[i % titles.length];
+            current.totalImages = 3;
+            current.primaryUrl = primaryUrl;
+            current.secondaryUrl = secondryUrl;
+            current.terniaryUrl = terniaryUrl;
+            data.add(current);
+        }
+        for (int i = 0; i < 5; i++) {
+            GalleryData current = new GalleryData();
+            current.eventTitle = titles[i % titles.length];
+            current.totalImages = 3;
+            current.primaryUrl = primaryUrl;
+            current.secondaryUrl = secondryUrl;
+            current.terniaryUrl = terniaryUrl;
+            data.add(current);
+        }
+        for (int i = 0; i < 5; i++) {
+            GalleryData current = new GalleryData();
+            current.eventTitle = titles[i % titles.length];
+            current.totalImages = 3;
+            current.primaryUrl = primaryUrl;
+            current.secondaryUrl = secondryUrl;
+            current.terniaryUrl = terniaryUrl;
+            data.add(current);
+        }
+
+        return data;
+    }
+
+    @Override
+    public void OnClickGalleryItem(View view, String title) {
+        Intent intent = new Intent(this,GalleryGrid.class);
+        intent.putExtra("GalleryItemSelected",title);
+        startActivity(intent);
     }
 }

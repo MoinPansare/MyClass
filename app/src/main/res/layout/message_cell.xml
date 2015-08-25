@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:id="@+id/message_cell_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/_message_cell_left_blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/message_cell_message_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:elevation="7dp">
+
+        <TextView
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_cell_date"
+            android:textSize="13sp"
+            android:text="1/9/2015"/>
+
+        <LinearLayout
+            android:layout_below="@+id/message_cell_date"
+            android:layout_margin="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/message_cell_main_message"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"
+                android:text="This is Some Dummy Messag eText To Fill In The Area Assigned Here Just To Check The fitting and other fucking stuff"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/_message_cell_right_blank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="11">
+
+    </LinearLayout>
+
+</LinearLayout>

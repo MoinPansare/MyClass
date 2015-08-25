@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_cell_view"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/row_elevation_color"
+    android:elevation="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:transitionName="photo_detail"
+    android:layout_marginTop="5dp">
+
+    <ImageView
+
+        android:scaleType="fitXY"
+        android:id="@+id/grid_cell_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg3"/>
+
+</LinearLayout>

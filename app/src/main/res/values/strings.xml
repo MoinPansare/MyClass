@@ -19,4 +19,9 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_activity_gallery">ActivityGallery</string>
     <string name="title_activity_live_feed_detail">LiveFeedDetail</string>
+    <string name="title_activity_gallery_grid">GalleryGrid</string>
+    <string name="title_activity_photo_viewer">PhotoViewer</string>
+    <string name="title_activity_messaging">Messaging</string>
+    <string name="title_activity_user_page">UserPage</string>
+    <string name="title_activity_image_pinch">ImagePinch</string>
 </resources>

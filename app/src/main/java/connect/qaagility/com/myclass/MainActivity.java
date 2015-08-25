@@ -25,7 +25,7 @@ import java.util.List;
 
 import connect.qaagility.com.myclass.LiveFeedsAdapter.someListData;
 
-public class MainActivity extends AppCompatActivity implements someListData {
+public class MainActivity extends AppCompatActivity implements someListData,NavigationDrawerFragment.topViewClick {
 
     private static String dataArgs = "connect.qaagility.com.myclass.MyClass_Data_Args1";
 
@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements someListData {
         NavigationDrawerFragment navFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigationDrawer_fragment);
         navFragment.setUp(R.id.navigationDrawer_fragment,(DrawerLayout) findViewById(R.id.drawerLayout), toolbar ,"Live Feed");
 
+        navFragment.settopViewClick(this);
+
         mainRecyclerView = (RecyclerView)findViewById(R.id.rv);
 
 
@@ -68,21 +70,6 @@ public class MainActivity extends AppCompatActivity implements someListData {
         myAdapter.setsomeListData(this);
         mainRecyclerView.setAdapter(myAdapter);
 
-        mainRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            int y = 0;
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-//                Log.d("new state",newState+"");
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-//                y=y+dy;
-//                Log.d("current Y", y + "");
-            }
-        });
 
     }
 
@@ -184,5 +171,14 @@ public class MainActivity extends AppCompatActivity implements someListData {
 //                            makeSceneTransitionAnimation(this, textView , "detail_title");
 
         ActivityCompat.startActivity(this, newIntent, options.toBundle());
+    }
+
+    @Override
+    public void userClickedTopView(View v) {
+        Intent myIntent = new Intent(this,UserPage.class);
+        Pair<View, String> p1 = Pair.create((View)v, "user_page");
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, p1);
+        ActivityCompat.startActivity(this,myIntent, options.toBundle());
     }
 }

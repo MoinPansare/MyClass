@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="connect.qaagility.com.myclass">
+    package="connect.qaagility.com.myclass" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +25,8 @@
         </activity>
         <activity
             android:name=".about_us"
-            android:label="@string/title_activity_about_us">
+            android:label="@string/title_activity_about_us"
+            android:screenOrientation="portrait" >
 
             <!-- <meta-data -->
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
@@ -26,16 +34,48 @@
         </activity>
         <activity
             android:name=".assignments"
-            android:label="@string/title_activity_assignments"></activity>
+            android:label="@string/title_activity_assignments"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivityGallery"
-            android:label="@string/title_activity_activity_gallery"></activity>
+            android:label="@string/title_activity_activity_gallery"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LiveFeedDetail"
-            android:label="@string/title_activity_live_feed_detail">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value=".MainActivity" />-->
+            android:label="@string/title_activity_live_feed_detail"
+            android:screenOrientation="portrait" >
+
+            <!-- <meta-data -->
+            <!-- android:name="android.support.PARENT_ACTIVITY" -->
+            <!-- android:value=".MainActivity" /> -->
+        </activity>
+        <activity
+            android:name=".GalleryGrid"
+            android:label="@string/title_activity_gallery_grid"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".PhotoViewer"
+            android:label="@string/title_activity_photo_viewer"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:screenOrientation="portrait"
+                android:value=".GalleryGrid" />
+        </activity>
+        <activity
+            android:name=".Messaging"
+            android:label="@string/title_activity_messaging"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".UserPage"
+            android:label="@string/title_activity_user_page"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".ImagePinch"
+            android:label="@string/title_activity_image_pinch" >
         </activity>
     </application>
 

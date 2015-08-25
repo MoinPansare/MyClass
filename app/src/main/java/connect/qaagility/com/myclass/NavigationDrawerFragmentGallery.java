@@ -161,19 +161,31 @@ public class NavigationDrawerFragmentGallery extends Fragment implements Navigat
 
         switch (position) {
             case 0:
-                if (!this.myTitle.toString().equalsIgnoreCase("Live Feed")) {
+                if (!this.myTitle.equalsIgnoreCase("Live Feed")) {
                     startActivity(new Intent(getActivity(), MainActivity.class));
                     getActivity().finish();
                 }
                 break;
             case 1:
-                if (!this.myTitle.toString().equalsIgnoreCase("Assignment")) {
+                if (!this.myTitle.equalsIgnoreCase("Assignment")) {
                     startActivity(new Intent(getActivity(), assignments.class));
                     getActivity().finish();
                 }
                 break;
+            case 2:
+                if (!this.myTitle.equalsIgnoreCase("Messages")) {
+                    startActivity(new Intent(getActivity(), Messaging.class));
+                    getActivity().finish();
+                }
+                break;
+            case 3:
+//                if (!this.myTitle.toString().equalsIgnoreCase("Messages")) {
+//                    startActivity(new Intent(getActivity(), Messaging.class));
+//                    getActivity().finish();
+//                }
+//                break;
             case 4:
-                if (!this.myTitle.toString().equalsIgnoreCase("Gallery")) {
+                if (!this.myTitle.equalsIgnoreCase("Gallery")) {
                     startActivity(new Intent(getActivity(), ActivityGallery.class));
                     getActivity().finish();
                 }

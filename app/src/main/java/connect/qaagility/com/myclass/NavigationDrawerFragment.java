@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +18,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +31,12 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class NavigationDrawerFragment extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickListener {
+
+
+    private View top_view;
+    private ImageView childImageView;
+    private TextView childNameTextView;
+    private topViewClick my_topViewClick;
 
     private String myTitle;
 
@@ -48,6 +59,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public NavigationDrawerFragment() {
 
+    }
+
+    public void settopViewClick(topViewClick some_topViewClick){
+        this.my_topViewClick = some_topViewClick;
     }
 
     @Override
@@ -73,6 +88,20 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         myAdapter.setMyClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myAdapter);
+
+        top_view = (View)view.findViewById(R.id.top_View);
+        childImageView = (ImageView)view.findViewById(R.id.child_image);
+        childNameTextView = (TextView)view.findViewById(R.id.child_name);
+
+        top_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                my_topViewClick.userClickedTopView(v);
+
+            }
+        });
+
         return view;
     }
 
@@ -172,6 +201,18 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                     getActivity().finish();
                 }
                 break;
+            case 2:
+                if (!this.myTitle.toString().equalsIgnoreCase("Messages")) {
+                    startActivity(new Intent(getActivity(), Messaging.class));
+                    getActivity().finish();
+                }
+                break;
+            case 3:
+//                if (!this.myTitle.toString().equalsIgnoreCase("Notifications")) {
+//                    startActivity(new Intent(getActivity(), ImagePinch.class));
+//                    getActivity().finish();
+//                }
+                break;
             case 4:
                 if (!this.myTitle.toString().equalsIgnoreCase("Gallery")) {
                     startActivity(new Intent(getActivity(), ActivityGallery.class));
@@ -186,5 +227,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public void hideDrawer(){
         mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    public interface topViewClick{
+        public void userClickedTopView(View v);
     }
 }

@@ -56,19 +56,20 @@ public class LiveFeedsAdapter extends RecyclerView.Adapter<LiveFeedsAdapter.Live
         holder.card_additionalBody_textView.setText(myData.moreInfo);
         setColorFor(holder.card_parentView, myData.backgroundColor);
         setAnimation(holder.card_parentView, position);
-        this.pos = position;
+
     }
 
-    private void setAnimation(View viewToAnimate, int position) {
-        if (pos < position) {
-            Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_bottom);
-            viewToAnimate.startAnimation(animation);
+    private void setAnimation(View view, int position) {
+        if (pos > position) {
+            Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_top);
+            view.startAnimation(animation);
         }
         else
         {
-            Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_top);
-            viewToAnimate.startAnimation(animation);
+            Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_bottom);
+            view.startAnimation(animation);
         }
+        pos = position;
     }
 
     private void setColorFor(View v, String str) {
@@ -90,7 +91,7 @@ public class LiveFeedsAdapter extends RecyclerView.Adapter<LiveFeedsAdapter.Live
         public void InitiateActivityTransition(TextView textView,View view,TextView dateTextView,TextView detailTextView,int position);
     }
 
-    public class LiveDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class LiveDataViewHolder extends RecyclerView.ViewHolder {
         TextView card_title_text_view;
         TextView card_date_text_view;
         TextView card_mainBody_textView;
@@ -108,39 +109,20 @@ public class LiveFeedsAdapter extends RecyclerView.Adapter<LiveFeedsAdapter.Live
             card_moreInfo_button = (Button) itemView.findViewById(R.id.card_moreInfo_button);
             card_parentView = (View)itemView.findViewById(R.id.card_view);
             card_moreInfo_button.setTag(0);
-            card_moreInfo_button.setOnClickListener(this);
             card_parentView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     int view_position = getAdapterPosition();
-//                    final Intent intent = new Intent(myContext, LiveFeedDetail.class);
-
                     final TextView textSelected = (TextView) v.findViewById(R.id.card_title_text_view);
                     final View selectedView = v;
                     final TextView dateTextFeild = (TextView)v.findViewById(R.id.card_date_text_view);
                     final TextView detailTextView = (TextView)v.findViewById(R.id.card_mainBody_textView);
-
-//                    ActivityOptionsCompat options = ActivityOptionsCompat.
-//                            makeSceneTransitionAnimation((Activity) myContext, textSelected , "detail_title");
-//
-//                    ActivityCompat.startActivity(myContext, intent, options.toBundle());
-
                     my_someListData.InitiateActivityTransition(textSelected,selectedView,dateTextFeild,detailTextView,view_position);
-
                 }
             });
         }
 
-        @Override
-        public void onClick(View v) {
-            if (card_moreInfo_button.getTag() == 0) {
-                card_moreInfo_button.setTag(1);
-                card_moreInfo_button.setText("Less Info");
-            } else {
-                card_moreInfo_button.setTag(0);
-                card_moreInfo_button.setText("More Info");
-            }
-        }
+
     }
 }
