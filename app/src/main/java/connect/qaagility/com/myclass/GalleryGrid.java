@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ public class GalleryGrid extends AppCompatActivity implements GalleryGridAdapter
     private Toolbar myToolbar;
     private RecyclerView my_recyclewView;
     private GalleryGridAdapter my_adapter;
+    private GalleryData myData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,15 @@ public class GalleryGrid extends AppCompatActivity implements GalleryGridAdapter
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getIntent().getStringExtra("GalleryItemSelected"));
+
+        myData = getIntent().getParcelableExtra("AllData");
+
         my_recyclewView = (RecyclerView)findViewById(R.id.grid_recyclerView);
 
-        my_adapter = new GalleryGridAdapter(this);
+        my_adapter = new GalleryGridAdapter(this,myData);
         my_adapter.setMy_GridImageSelected(this);
         my_recyclewView.setLayoutManager(new StaggeredGridLayoutManager(2,1));
+//        my_recyclewView.setLayoutManager(new GridLayoutManager(this,2));
         my_recyclewView.setAdapter(my_adapter);
     }
 
@@ -74,13 +80,15 @@ public class GalleryGrid extends AppCompatActivity implements GalleryGridAdapter
 
     @Override
     public void selectedGridImage(ImageView v, int position) {
-//        Toast.makeText(this,position+"",Toast.LENGTH_SHORT).show();
+
         Intent myIntent = new Intent(this,PhotoViewer.class);
-        myIntent.putExtra("imagePassedToPhotoPage",R.drawable.bg3);
+        myIntent.putExtra("my_current_selection_position",position);
+        myIntent.putExtra("dataForPager",myData);
         Pair<View, String> p1 = Pair.create((View)v, "photo_detail");
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this, p1);
-//        Log.d("optionsToBundle", options.toBundle() + "");
         ActivityCompat.startActivity(this,myIntent, options.toBundle());
+
     }
+
 }

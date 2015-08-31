@@ -9,10 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ActivityGallery extends AppCompatActivity implements GalleryMainRow
         setContentView(R.layout.activity_activity_gallery);
 
         toolbar = (Toolbar)findViewById(R.id.app_bar_gallery);
+        toolbar.startAnimation(AnimationUtils.loadAnimation(ActivityGallery.this,
+                R.anim.app_bar_show));
+
         setSupportActionBar(toolbar);
         try{
             getSupportActionBar().setTitle("Gallery");
@@ -107,6 +112,10 @@ public class ActivityGallery extends AppCompatActivity implements GalleryMainRow
             current.primaryUrl = primaryUrl;
             current.secondaryUrl = secondryUrl;
             current.terniaryUrl = terniaryUrl;
+            for(int j=0;j<17;j++){
+//                current.arr.add("http://media-cache-ak0.pinimg.com/736x/c5/65/9b/c5659b2b6cd5a88ec785b09e49efcfec.jpg");
+                current.arr.add(j,secondryUrl.toString());
+            }
             data.add(current);
         }
         for (int i = 0; i < 5; i++) {
@@ -116,6 +125,10 @@ public class ActivityGallery extends AppCompatActivity implements GalleryMainRow
             current.primaryUrl = primaryUrl;
             current.secondaryUrl = secondryUrl;
             current.terniaryUrl = terniaryUrl;
+            for(int j=0;j<17;j++){
+//                current.arr.add("http://media-cache-ak0.pinimg.com/736x/c5/65/9b/c5659b2b6cd5a88ec785b09e49efcfec.jpg");
+                current.arr.add(j,secondryUrl);
+            }
             data.add(current);
         }
         for (int i = 0; i < 5; i++) {
@@ -125,6 +138,10 @@ public class ActivityGallery extends AppCompatActivity implements GalleryMainRow
             current.primaryUrl = primaryUrl;
             current.secondaryUrl = secondryUrl;
             current.terniaryUrl = terniaryUrl;
+            for(int j=0;j<17;j++){
+//                current.arr.add("http://media-cache-ak0.pinimg.com/736x/c5/65/9b/c5659b2b6cd5a88ec785b09e49efcfec.jpg");
+                current.arr.add(j,secondryUrl);
+            }
             data.add(current);
         }
 
@@ -132,9 +149,34 @@ public class ActivityGallery extends AppCompatActivity implements GalleryMainRow
     }
 
     @Override
-    public void OnClickGalleryItem(View view, String title) {
+    public void OnClickGalleryItem(View view, String title,GalleryData selectedData) {
+
         Intent intent = new Intent(this,GalleryGrid.class);
         intent.putExtra("GalleryItemSelected",title);
+        intent.putExtra("AllData", selectedData);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+
+            toolbar.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(300);
+                        getSupportActionBar().hide();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            gallery_recyclerView.setAlpha(0);
+        }
+
+        return super.onKeyDown(keyCode, event);
+
     }
 }

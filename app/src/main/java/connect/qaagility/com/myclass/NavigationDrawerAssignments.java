@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,18 +25,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickListener {
+public class NavigationDrawerAssignments extends Fragment implements NavigationDrawerRecyclerViewAdapter.MyClickListener {
 
-
-    private View top_view;
-    private ImageView childImageView;
-    private TextView childNameTextView;
-    private topViewClick my_topViewClick;
 
     private String myTitle;
 
-    public String file_Name = "file_name";
-    public String Key_User_Learned_Drawer = "userLearnedDrawer";
+    private String file_Name = "file_name_assignments";
+    private String Key_User_Learned_Drawer = "userLearnedDrawer_assignments";
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -57,12 +47,12 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     private List<NavigationDrawerData> AllData = Collections.emptyList();
 
-    public NavigationDrawerFragment() {
 
-    }
 
-    public void settopViewClick(topViewClick some_topViewClick){
-        this.my_topViewClick = some_topViewClick;
+
+
+    public NavigationDrawerAssignments() {
+        // Required empty public constructor
     }
 
     @Override
@@ -77,35 +67,19 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-//        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-
-        View view = (View) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_navigation_drawer_assignments, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_assignments);
         AllData = getData();
         myAdapter = new NavigationDrawerRecyclerViewAdapter(getActivity(), AllData);
         myAdapter.setMyClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(myAdapter);
-
-        top_view = (View)view.findViewById(R.id.top_View);
-        childImageView = (ImageView)view.findViewById(R.id.child_image);
-        childNameTextView = (TextView)view.findViewById(R.id.child_name);
-
-        top_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                my_topViewClick.userClickedTopView(v);
-
-            }
-        });
-
         return view;
+
     }
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar, String myTitle) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar,String myTitle) {
 
         this.myTitle = myTitle;
         containerView = (View) getActivity().findViewById(fragmentId);
@@ -167,7 +141,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         return (sp.getString(Key, Value)).toString();
     }
 
-
     public static List<NavigationDrawerData> getData() {
         //load only static data inside a drawer
         List<NavigationDrawerData> data = new ArrayList<>();
@@ -183,53 +156,49 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         return data;
     }
 
-    @Override
     public void ItemClicked(View view, int position) {
 
         mDrawerLayout.closeDrawer(Gravity.LEFT);
 
         switch (position) {
             case 0:
-                if (!this.myTitle.toString().equalsIgnoreCase("Live Feed")) {
+                if (!this.myTitle.equalsIgnoreCase("Live Feed")) {
                     startActivity(new Intent(getActivity(), liveFeed.class));
                     getActivity().finish();
                 }
                 break;
             case 1:
-                if (!this.myTitle.toString().equalsIgnoreCase("Assignments")) {
+                if (!this.myTitle.equalsIgnoreCase("Assignments")) {
                     startActivity(new Intent(getActivity(), assignments.class));
                     getActivity().finish();
                 }
                 break;
             case 2:
-                if (!this.myTitle.toString().equalsIgnoreCase("Messages")) {
+                if (!this.myTitle.equalsIgnoreCase("Messages")) {
                     startActivity(new Intent(getActivity(), Messaging.class));
                     getActivity().finish();
                 }
                 break;
             case 3:
-//                if (!this.myTitle.toString().equalsIgnoreCase("Notifications")) {
-//                    startActivity(new Intent(getActivity(), ImagePinch.class));
+//                if (!this.myTitle.toString().equalsIgnoreCase("Messages")) {
+//                    startActivity(new Intent(getActivity(), Messaging.class));
 //                    getActivity().finish();
 //                }
-                break;
+//                break;
             case 4:
-                if (!this.myTitle.toString().equalsIgnoreCase("Gallery")) {
+                if (!this.myTitle.equalsIgnoreCase("Gallery")) {
                     startActivity(new Intent(getActivity(), ActivityGallery.class));
                     getActivity().finish();
                 }
                 break;
 
             default:
-                Toast.makeText(getActivity(), "Not Created Yet", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Not Created Yet",Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void hideDrawer(){
+    public void hideTheDrawer() {
         mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
 
-    public interface topViewClick{
-        public void userClickedTopView(View v);
-    }
 }

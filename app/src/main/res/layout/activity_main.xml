@@ -1,43 +1,183 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor_Selected"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/login_background">
 
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
+    <LinearLayout
+        android:background="@android:color/black"
+        android:alpha="0.60"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="connect.qaagility.com.myclass.MainActivity">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:id="@+id/rv"
-                android:layout_marginBottom="-3dp" />
-
-        </LinearLayout>
-
-        <fragment
-        android:id="@+id/navigationDrawer_fragment"
-        android:name="connect.qaagility.com.myclass.NavigationDrawerFragment"
-        android:layout_width="300dp"
-        android:layout_gravity="start"
         android:layout_height="match_parent"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginRight="-5dp" />
 
-    </android.support.v4.widget.DrawerLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/main_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:elevation="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/user_background02"
+                android:id="@+id/logoImage" />
+
+
+            <LinearLayout
+                android:id="@+id/userNameLinearLayout"
+                android:layout_below="@+id/logoImage"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/mail"
+                    android:layout_margin="8dp"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:maxLines="1"
+                    android:textColorHint="@android:color/white"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/userNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="User Name"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_below="@+id/userNameLinearLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout">
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/password"
+                    android:layout_margin="8dp"
+                    android:padding="5dp" />
+
+                <EditText
+                    android:maxLines="1"
+                    android:password="true"
+                    android:textColorHint="@android:color/white"
+                    android:textColor="@android:color/white"
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:background="#3F51B4"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Login"
+                android:id="@+id/loginButton"
+                android:layout_below="@+id/linearLayout"
+                android:layout_marginTop="35dp"
+                android:layout_alignRight="@+id/logoImage"
+                android:layout_alignEnd="@+id/logoImage"
+                android:layout_alignLeft="@+id/logoImage"
+                android:layout_alignStart="@+id/logoImage"
+                android:elevation="50dp"
+                android:onClick="goToLiveFeedPage"/>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="25sp">
+        <ImageView
+            android:id="@+id/fbImageView"
+            android:src="@drawable/fb"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="-10dp"
+            android:scaleType="fitXY"
+            android:elevation="50dp" />
+
+        <TextView
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:text="OR"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/gPlusImageView"
+            android:src="@drawable/gplus"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="fitXY"
+            android:elevation="50dp" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

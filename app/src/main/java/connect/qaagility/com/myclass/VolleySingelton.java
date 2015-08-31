@@ -65,7 +65,21 @@ public class VolleySingelton {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                desired_ImageView.setImageResource(R.drawable.parent_image);
+                desired_ImageView.setImageResource(R.drawable.user_background02);
+            }
+        },400,400);
+    }
+
+    public static void LoadImageFromUrl(ImageLoader myImageLoader_args, final ImageView desired_ImageView, final String url){
+        myImageLoader_args.get(url, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                desired_ImageView.setImageBitmap(response.getBitmap());
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                desired_ImageView.setImageResource(R.drawable.user_background02);
             }
         },400,400);
     }
@@ -77,12 +91,28 @@ public class VolleySingelton {
 
                 Drawable dr = new BitmapDrawable(MyApplication.getAppContext().getResources(), response.getBitmap());
                 desired_ImageView.setBackground(dr);
-                PhotoGalleryHandeler.saveFileToExternalStorage(response.getBitmap(),file_name);
+                PhotoGalleryHandeler.saveFileToExternalStorage(response.getBitmap(), file_name);
             }
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                desired_ImageView.setBackgroundResource(R.drawable.parent_image);
+                desired_ImageView.setBackgroundResource(R.drawable.user_background02);
+            }
+        },400,400);
+    }
+
+    public static void LoadImageFromUrlForView(ImageLoader myImageLoader_args, final RelativeLayout desired_ImageView, final String url){
+        myImageLoader_args.get(url, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+
+                Drawable dr = new BitmapDrawable(MyApplication.getAppContext().getResources(), response.getBitmap());
+                desired_ImageView.setBackground(dr);
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                desired_ImageView.setBackgroundResource(R.drawable.user_background02);
             }
         },400,400);
     }

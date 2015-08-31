@@ -61,13 +61,22 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
     @Override
     public void onBindViewHolder(final GalleryDataViewHolder holder, int position) {
 
-        GalleryData myData = data.get(position);
+        final GalleryData myData = data.get(position);
         GalleryData someData = data.get(0);
 
         //set data here from arr
 
-
         holder.eventTitleTextView.setText(myData.eventTitle);
+
+        holder.card_parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                my_gallertItemSelected.OnClickGalleryItem(v, myData.eventTitle.toString(),myData);
+
+            }
+        });
+
+
         if (myData.totalImages - 2 > 0) {
             holder.numberOfImagesTextView.setVisibility(View.VISIBLE);
             holder.blurryImage.setVisibility(View.VISIBLE);
@@ -88,6 +97,7 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
 //        loadImage(holder.SecondaryImageView, myData.secondaryUrl, myData.eventTitle + "Secondry.jpg");
 //        loadImageForView(holder.terniaryImageView, myData.terniaryUrl, myData.eventTitle + "Terniary.jpg");
 
+        /*
         loadBitmap(myData.eventTitle +"Primary.jpg", holder.primaryImageView);
         if(holder.primaryImageView.getDrawable() == null){
             VolleySingelton.LoadImageFromUrlAndCache(mImageLoader, holder.primaryImageView, myData.primaryUrl, myData.eventTitle + "Primary.jpg");
@@ -96,11 +106,37 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
         }
 
         loadBitmap(myData.eventTitle +"Secondary.jpg", holder.SecondaryImageView);
-        if(holder.primaryImageView.getDrawable() == null){
-            VolleySingelton.LoadImageFromUrlAndCache(mImageLoader, holder.primaryImageView, myData.primaryUrl, myData.eventTitle + "Primary.jpg");
+        if(holder.SecondaryImageView.getDrawable() == null){
+            VolleySingelton.LoadImageFromUrlAndCache(mImageLoader, holder.SecondaryImageView, myData.secondaryUrl, myData.eventTitle + "Secondary.jpg");
         }else{
 
         }
+                VolleySingelton.LoadImageFromUrlAndCacheForView(mImageLoader, holder.terniaryImageView, myData.terniaryUrl, myData.eventTitle + "Terniary.jpg");
+
+
+        */
+        VolleySingelton.LoadImageFromUrl(mImageLoader, holder.primaryImageView, myData.primaryUrl);
+        VolleySingelton.LoadImageFromUrl(mImageLoader, holder.SecondaryImageView, myData.secondaryUrl);
+        VolleySingelton.LoadImageFromUrlForView(mImageLoader, holder.terniaryImageView, myData.terniaryUrl);
+
+        int additionalImages = 0;
+        additionalImages = myData.arr.size();
+        if(additionalImages!=0){
+            holder.numberOfImagesTextView.setText(additionalImages+"");
+            holder.blurryImage.setAlpha((float) 0.7);
+            holder.downArrowImageView.setAlpha((float)1.0);
+            holder.numberOfImagesTextView.setAlpha((float)1.0);
+        }
+        else{
+            holder.blurryImage.setAlpha((float) 0.0);
+            holder.downArrowImageView.setAlpha((float)0.0);
+            holder.numberOfImagesTextView.setAlpha((float)0.0);
+        }
+
+
+
+
+
 
 //        loadBitmap(myData.eventTitle +"Primary.jpg", holder.primaryImageView);
 //        if(holder.primaryImageView.getDrawable() == null){
@@ -110,7 +146,6 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
 //        }
 
 //        VolleySingelton.LoadImageFromUrlAndCache(mImageLoader, holder.SecondaryImageView, myData.secondaryUrl, myData.eventTitle + "Secondary.jpg");
-        VolleySingelton.LoadImageFromUrlAndCacheForView(mImageLoader, holder.terniaryImageView, myData.terniaryUrl, myData.eventTitle + "Terniary.jpg");
 //        holder.primaryImageView.setImageResource(R.drawable.user_background02);
 //        holder.SecondaryImageView.setImageResource(R.drawable.bg3);
 //        holder.terniaryImageView.(R.drawable.bg3);
@@ -209,10 +244,10 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
     }
 
     public interface galleryItemSelected {
-        public void OnClickGalleryItem(View view, String title);
+        public void OnClickGalleryItem(View view, String title,GalleryData selectedData);
     }
 
-    public class GalleryDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class GalleryDataViewHolder extends RecyclerView.ViewHolder  {
 
         // all declareations here
 
@@ -233,14 +268,8 @@ public class GalleryMainRowAdapter extends RecyclerView.Adapter<GalleryMainRowAd
             downArrowImageView = (ImageView) itemView.findViewById(R.id.downArrowImageView);
             card_parentView = itemView;
 
-            itemView.setOnClickListener(this);
-
         }
 
-        @Override
-        public void onClick(View v) {
-            my_gallertItemSelected.OnClickGalleryItem(v, eventTitleTextView.getText().toString());
-        }
     }
 
 

@@ -17,7 +17,8 @@
         android:transitionName="photo_detail"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingRight="8dp" />
 
 
 

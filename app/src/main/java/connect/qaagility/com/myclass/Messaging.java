@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +28,8 @@ import java.util.List;
 public class Messaging extends AppCompatActivity {
 
     EditText enteringTextView;
-    ImageView sendButtonImageView;
+    ImageView sendButtonImageView,teacherImage;
+    TextView teacherTextView;
 
     Toolbar my_toolbar;
     RecyclerView my_recyclreView;
@@ -39,6 +41,8 @@ public class Messaging extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging);
         my_toolbar = (Toolbar) findViewById(R.id.meaage_app_bar);
+        my_toolbar.startAnimation(AnimationUtils.loadAnimation(Messaging.this,
+                R.anim.app_bar_show));
         setSupportActionBar(my_toolbar);
         getSupportActionBar().setTitle("Messages");
 
@@ -49,6 +53,9 @@ public class Messaging extends AppCompatActivity {
         myAdapter = new MessageAdapter(this, AllData);
         my_recyclreView.setLayoutManager(new LinearLayoutManager(this, 1, true));
         my_recyclreView.setAdapter(myAdapter);
+
+        teacherImage = (ImageView)findViewById(R.id.Contact_imageView);
+        teacherTextView = (TextView)findViewById(R.id.textView);
 
 //        my_recyclreView.
 
@@ -250,6 +257,31 @@ public class Messaging extends AppCompatActivity {
         String messageBody;
         String messageDate;
         int sender;//0 for sender 1 for recipient
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+
+            my_toolbar.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(300);
+                        getSupportActionBar().hide();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            my_recyclreView.setAlpha(0);
+            teacherImage.setAlpha(0);
+            teacherTextView.setAlpha(0);
+        }
+
+        return super.onKeyDown(keyCode, event);
+
     }
 
 }

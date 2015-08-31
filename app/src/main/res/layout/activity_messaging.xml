@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="connect.qaagility.com.myclass.Messaging">
+    tools:context="connect.qaagility.com.myclass.Messaging"
+    android:background="@color/mainColor"
+    android:transitionName="transition_messages">
 
     <include layout="@layout/app_bar"
         android:id="@+id/meaage_app_bar"/>
