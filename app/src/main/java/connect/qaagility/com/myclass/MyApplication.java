@@ -3,6 +3,7 @@ package connect.qaagility.com.myclass;
 import android.app.Application;
 import android.content.Context;
 
+
 /**
  * Created by macpro on 8/20/15.
  */
@@ -23,4 +24,6 @@ public class MyApplication extends Application {
         super.onCreate();
         my_application = this;
     }
+
+
 }

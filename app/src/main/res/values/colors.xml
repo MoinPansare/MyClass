@@ -48,4 +48,9 @@
     <color name="indicator_4">#FDBC7D</color>
 
     <color name="trans">#00000000 </color>
+
+    <color name="iAmSending">#7986cc</color>
+    <color name="iAmRecieveing">#c5cae8</color>
+
+    <color name="redColor">#D32F2F</color>
 </resources>

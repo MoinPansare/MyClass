@@ -27,6 +27,9 @@
     <string name="title_activity_login">login</string>
     <string name="title_activity_live_feed">liveFeed</string>
     <string name="title_activity_home_page">homePage</string>
+    <string name="title_activity_sign_up">SignUp</string>
+
+    <string name="facebook_app_id">815206765265619</string>
 
 
 </resources>

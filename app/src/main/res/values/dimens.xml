@@ -13,6 +13,7 @@
     <dimen name="padding_medium">8dp</dimen>
     <dimen name="padding_large">16dp</dimen>
 
-
+    <dimen name="paddingnone">0dp</dimen>
+    <dimen name="negativePadding">-15dp</dimen>
 
 </resources>

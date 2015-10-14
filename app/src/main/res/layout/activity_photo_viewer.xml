@@ -12,6 +12,8 @@
         <!--android:id="@+id/back_overlay_imageView"-->
         <!--android:layout_centerInParent="true" />-->
 
+
+
     <android.support.v4.view.ViewPager
 
         android:transitionName="photo_detail"

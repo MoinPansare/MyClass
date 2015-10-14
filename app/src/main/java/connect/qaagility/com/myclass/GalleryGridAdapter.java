@@ -61,19 +61,7 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
                 }catch (Exception e){
 
                 }
-
         }
-
-//        VolleySingelton.LoadImageFromUrlAndCache(mImageLoader, holder.primaryImageView, myData.primaryUrl, myData.eventTitle + "Primary.jpg");
-
-//        switch (position % 3) {
-//            case 0:
-//                holder.primaryImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300));
-//                break;
-//            case 1:
-//                holder.primaryImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300));
-//                break;
-//        }
         setAnimation(holder.layout_view, position);
     }
 
@@ -90,7 +78,19 @@ public class GalleryGridAdapter extends RecyclerView.Adapter<GalleryGridAdapter.
 
     @Override
     public int getItemCount() {
-        return 20;
+        int check = 0;
+        if (myData.primaryUrl != null){
+            check = check + 1;
+        }
+        if (myData.secondaryUrl != null){
+            check = check + 1;
+        }
+        if (myData.terniaryUrl != null){
+            check = check + 1;
+        }
+        check = check + myData.arr.size();
+
+        return check;
     }
 
     public class GalleryGridViewHolder extends RecyclerView.ViewHolder {

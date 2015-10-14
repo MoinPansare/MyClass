@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="connect.qaagility.com.myclass.signupFragments.ImageSectionSignUp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.60"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/trans"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/chile_Image_Uploading"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/user_background02"
+            app:border_color="#FF000000"
+            app:border_width="2dp" />
+
+        <Button
+            android:id="@+id/selectImage_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Profile Image"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/skip_continue_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

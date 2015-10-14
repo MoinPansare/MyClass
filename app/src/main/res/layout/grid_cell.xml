@@ -11,12 +11,9 @@
     android:transitionName="photo_detail"
     android:layout_marginTop="5dp">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="150dp" />
     
     <ImageView
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:id="@+id/grid_cell_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"

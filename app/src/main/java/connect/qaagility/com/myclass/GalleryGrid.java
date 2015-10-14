@@ -40,7 +40,7 @@ public class GalleryGrid extends AppCompatActivity implements GalleryGridAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getIntent().getStringExtra("GalleryItemSelected"));
 
-        myData = getIntent().getParcelableExtra("AllData");
+        myData = getIntent().getParcelableExtra("AllDataForImages");
 
         my_recyclewView = (RecyclerView)findViewById(R.id.grid_recyclerView);
 

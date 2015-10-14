@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/trans"
+    android:background="@drawable/login_background"
     tools:context="connect.qaagility.com.myclass.liveFeed"
     android:transitionName="transition_live_feed"
     android:id="@+id/main_Parent">
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mainBackground"
-        android:alpha="0.55"/>
+        android:alpha="0.35"/>
 
     <include
         android:id="@+id/app_bar"
@@ -30,11 +30,21 @@
             android:layout_height="match_parent"
             tools:context="connect.qaagility.com.myclass.MainActivity">
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_height="match_parent"
+            <android.support.v4.widget.SwipeRefreshLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swipeContainerLiveFeeds"
                 android:layout_width="match_parent"
-                android:id="@+id/rv"
-                android:layout_marginBottom="-3dp" />
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:id="@+id/rv"
+                    android:layout_marginBottom="-3dp" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
         </LinearLayout>
 

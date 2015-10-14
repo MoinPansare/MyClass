@@ -8,4 +8,9 @@
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
+
+    <style name="floatlabelededittext">
+        <item name="android:textColor">#FF0000</item>
+    </style>
+
 </resources>

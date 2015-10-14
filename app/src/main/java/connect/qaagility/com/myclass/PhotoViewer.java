@@ -112,11 +112,19 @@ public class PhotoViewer extends AppCompatActivity {
         public ImagePagerAdapter(GalleryData myData){
             mVolleySingleton = VolleySingelton.getMy_Volley_Singelton_Reference();
             mImageLoader = mVolleySingleton.getImageLoader();
-            myCollection.add(myData.primaryUrl);
-            myCollection.add(myData.secondaryUrl);
-            myCollection.add(myData.terniaryUrl);
+            if (myData.primaryUrl != null){
+                myCollection.add(myData.primaryUrl);
+            }
+            if (myData.secondaryUrl != null){
+                myCollection.add(myData.secondaryUrl);
+            }
+            if (myData.terniaryUrl != null){
+                myCollection.add(myData.terniaryUrl);
+            }
             for (String url:myData.arr) {
-                myCollection.add(url);
+                if (url!=null){
+                    myCollection.add(url);
+                }
             }
         }
 

@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="connect.qaagility.com.myclass.Messaging"
-    android:background="@color/mainColor"
-    android:transitionName="transition_messages">
+    android:background="@color/trans"
+    android:id="@+id/parentView">
+
+    <View
+        android:transitionName="transition_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainBackground"
+        android:alpha="0.35"/>
 
     <include layout="@layout/app_bar"
         android:id="@+id/meaage_app_bar"/>
@@ -15,61 +22,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/Contact_imageView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="15dp"
-            android:src="@drawable/user_image"
-            android:scaleType="fitXY"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:text="Teacher"
-            android:layout_alignBottom="@+id/Contact_imageView"
-            android:layout_toRightOf="@+id/Contact_imageView"
-            android:layout_toEndOf="@+id/Contact_imageView"
-            android:id="@+id/textView" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_recyclreView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/textView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/meaage_edit_text"
-            android:layout_margin="5dp" />
+            android:layout_above="@+id/dataEnteringLayout" />
 
-
-        <EditText
-            android:hint="Enter Message"
-            android:id="@+id/meaage_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:alpha="0"
+            android:elevation="15dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="65dp"
-            android:layout_marginBottom="5dp" />
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dataEnteringLayout">
 
-        <ImageView
-            android:padding="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@+id/meaage_edit_text"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/send"
-            android:id="@+id/send_imageView" />
+            <EditText
+                android:hint="Enter Message"
+                android:id="@+id/meaage_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="65dp"
+                android:layout_marginBottom="5dp"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/meaage_edit_text"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/send"
+                android:id="@+id/send_imageView"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp" />
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </RelativeLayout>

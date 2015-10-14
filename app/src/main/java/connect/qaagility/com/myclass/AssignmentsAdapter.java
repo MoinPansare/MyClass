@@ -35,7 +35,6 @@ public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.
         inflator = LayoutInflater.from(context);
         myContext = context;
         this.data = data;
-        pos = data.size();
     }
 
     @Override
@@ -69,7 +68,12 @@ public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.
 
     private void setAnimation(View view, int position) {
 
-        if(pos<=position){
+        if (pos > position) {
+            Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_top);
+            view.startAnimation(animation);
+        }
+        else
+        {
             Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_bottom);
             view.startAnimation(animation);
         }

@@ -5,6 +5,13 @@ android {
 //    buildToolsVersion "23.0.0 rc3"
 //    buildToolsVersion "24.3.4"
     buildToolsVersion "23.0.0"
+    useLibrary 'org.apache.http.legacy'
+
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+
+    }
 
     defaultConfig {
         applicationId "connect.qaagility.com.myclass"
@@ -20,18 +27,30 @@ android {
         }
     }
 }
-repositories {
-    maven { url "https://jitpack.io" }
-}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.android.support:recyclerview-v7:23.0.0'
+
+    compile project(":libs:IconEditText")
+
+
     compile 'com.github.traex.rippleeffect:library:1.3'
     compile 'com.felipecsl.asymmetricgridview:library:2.0.1'
     compile 'com.github.mcxiaoke:android-volley:1.0.18'
     compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'me.relex:circleindicator:1.1.5@aar'
+
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
+
+    compile 'com.github.MoinPansare:MaterialTextField:3df307f944'
+    compile 'com.android.support:cardview-v7:23.0.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+
+    compile 'com.facebook.android:facebook-android-sdk:4.5.0'
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
+
 }

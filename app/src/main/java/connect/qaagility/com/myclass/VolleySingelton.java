@@ -3,8 +3,7 @@ package connect.qaagility.com.myclass;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Environment;
+
 import android.util.LruCache;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -65,12 +64,18 @@ public class VolleySingelton {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                desired_ImageView.setAlpha((float)0.0);
                 desired_ImageView.setImageResource(R.drawable.user_background02);
             }
         },400,400);
     }
 
     public static void LoadImageFromUrl(ImageLoader myImageLoader_args, final ImageView desired_ImageView, final String url){
+
+        if (url == null || url.length() == 0){
+            return;
+        }
+
         myImageLoader_args.get(url, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -79,7 +84,7 @@ public class VolleySingelton {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                desired_ImageView.setImageResource(R.drawable.user_background02);
+                desired_ImageView.setAlpha((float)0.0);
             }
         },400,400);
     }
@@ -102,6 +107,9 @@ public class VolleySingelton {
     }
 
     public static void LoadImageFromUrlForView(ImageLoader myImageLoader_args, final RelativeLayout desired_ImageView, final String url){
+        if (url == null || url.length() == 0){
+            return;
+        }
         myImageLoader_args.get(url, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {

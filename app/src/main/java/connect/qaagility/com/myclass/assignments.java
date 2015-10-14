@@ -26,6 +26,8 @@ import java.util.List;
 
 public class assignments extends AppCompatActivity implements AssignmentsAdapter.assignmentEvent {
 
+    private View parent_View;
+
     private Toolbar toolbar;
     private NavigationDrawerAssignments navFragment;
     private RecyclerView myRecyclerView;
@@ -37,8 +39,10 @@ public class assignments extends AppCompatActivity implements AssignmentsAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignments);
         toolbar = (Toolbar)findViewById(R.id.app_bar);
-        toolbar.startAnimation(AnimationUtils.loadAnimation(this,
-                R.anim.app_bar_show));
+        parent_View = (View)findViewById(R.id.parent_view_assignments);
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.app_bar_show);
+        toolbar.startAnimation(animation);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Assignments");
 
@@ -56,7 +60,25 @@ public class assignments extends AppCompatActivity implements AssignmentsAdapter
 
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        myRecyclerView.setAdapter(myAdapter);
+
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                parent_View.setBackgroundResource(R.drawable.login_background);
+                myRecyclerView.setAdapter(myAdapter);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
     }
@@ -154,6 +176,8 @@ public class assignments extends AppCompatActivity implements AssignmentsAdapter
                 }
             });
             myRecyclerView.setAlpha(0);
+            parent_View.setBackgroundResource(R.color.trans);
+            parent_View.setAlpha((float)0.3);
         }
 
         return super.onKeyDown(keyCode, event);

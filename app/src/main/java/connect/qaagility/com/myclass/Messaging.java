@@ -28,21 +28,27 @@ import java.util.List;
 public class Messaging extends AppCompatActivity {
 
     EditText enteringTextView;
-    ImageView sendButtonImageView,teacherImage;
-    TextView teacherTextView;
+    ImageView sendButtonImageView;
 
     Toolbar my_toolbar;
     RecyclerView my_recyclreView;
     private List<MessageData> AllData = Collections.emptyList();
     private MessageAdapter myAdapter;
 
+    View parentView,dataEnteringView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging);
         my_toolbar = (Toolbar) findViewById(R.id.meaage_app_bar);
-        my_toolbar.startAnimation(AnimationUtils.loadAnimation(Messaging.this,
-                R.anim.app_bar_show));
+        parentView = findViewById(R.id.parentView);
+        dataEnteringView = findViewById(R.id.dataEnteringLayout);
+
+        Animation anim = AnimationUtils.loadAnimation(Messaging.this,
+                R.anim.app_bar_show);
+        my_toolbar.startAnimation(anim);
+
         setSupportActionBar(my_toolbar);
         getSupportActionBar().setTitle("Messages");
 
@@ -52,10 +58,8 @@ public class Messaging extends AppCompatActivity {
 
         myAdapter = new MessageAdapter(this, AllData);
         my_recyclreView.setLayoutManager(new LinearLayoutManager(this, 1, true));
-        my_recyclreView.setAdapter(myAdapter);
 
-        teacherImage = (ImageView)findViewById(R.id.Contact_imageView);
-        teacherTextView = (TextView)findViewById(R.id.textView);
+
 
 //        my_recyclreView.
 
@@ -84,6 +88,25 @@ public class Messaging extends AppCompatActivity {
         });
 //        my_recyclreView.scrollToPosition(AllData.size());
 
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                parentView.setBackgroundResource(R.drawable.login_background);
+                my_recyclreView.setAdapter(myAdapter);
+                dataEnteringView.setAlpha(1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
     }
 
     public List<MessageData> getData() {
@@ -91,7 +114,7 @@ public class Messaging extends AppCompatActivity {
         List<MessageData> data = new ArrayList<>();
         String[] titles = {"News Board", "Assignments", "Messages", "Notifications", "Photos"};
         String[] dates = {"1/8/2015", "2/8/2015", "3/8/2015", "4/8/2015", "5/8/2015"};
-        String[] mainBody = {"This is Some Dummy Data Tp Prove Than At Times The Text Might Get Clipped Off And We Might Not Be Able To See The Rest Of The Content, but at times we can see actually what is intended for viewing, but at times we can see actually what is intended for viewing", "Assignments", "Messages", "Notifications", "Photos"};
+        String[] mainBody = {"This is Some Dummy Data Tp Prove Than At Times The Text Might Get Clipped", "Assignments", "Messages", "Notifications", "Photos"};
         String[] additional = {"News Board", "Assignments", "Messages", "Notifications", "Photos"};
         String[] backGroundPriority = {"urgent", "normal", "normal", "urgent", "normal"};
         for (int i = 0; i < 5; i++) {
@@ -184,49 +207,41 @@ public class Messaging extends AppCompatActivity {
 
             holder.center_layout_view.setBackgroundResource(R.color.dividerColor);
 
-            if (someData.sender == 1) {
+            if (someData.sender == 0) {
+                holder.leftImage.setImageResource(0);
+                holder.rightImage.setImageResource(R.drawable.user_image);
                 holder.left_layout_view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT, 11));
 
                 holder.right_layout_view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT, 10));
 
-                holder.center_layout_view.setBackgroundResource(R.color.greenBackground);
+                holder.center_layout_view.setBackgroundResource(R.color.iAmSending);
             } else {
+                holder.rightImage.setImageResource(0);
+                holder.leftImage.setImageResource(R.drawable.parent_image);
                 holder.left_layout_view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT, 10));
 
                 holder.right_layout_view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT, 11));
 
-                holder.center_layout_view.setBackgroundResource(R.color.blueBackground);
+                holder.center_layout_view.setBackgroundResource(R.color.iAmRecieveing);
             }
             holder.bodyTextView.setText(someData.messageBody);
             holder.dateTextView.setText(someData.messageDate);
-//            setAnimation(holder.parent_layout_view, position);
+            setAnimation(holder.parent_layout_view, someData.sender);
 
         }
 
-        private void setAnimation(View view, int position) {
-
-            if (this.newValue != -1) {
-//                this.newValue = 0;
-                Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_bottom);
+        private void setAnimation(View view, int sender) {
+            if (sender == 1) {
+                Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.slide_in_left);
                 view.startAnimation(animation);
             } else {
-                if (pos <= position) {
-                    Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_top);
-                    view.startAnimation(animation);
-                } else {
-                    Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.push_from_bottom);
-                    view.startAnimation(animation);
-                }
+                Animation animation = AnimationUtils.loadAnimation(myContext, R.anim.slide_in_right);
+                view.startAnimation(animation);
             }
-
-            if (position == data.size() || position == (data.size() - 1)) {
-                this.newValue = 0;
-            }
-            pos = position;
         }
 
         @Override
@@ -239,6 +254,7 @@ public class Messaging extends AppCompatActivity {
 
         View center_layout_view, left_layout_view, right_layout_view, parent_layout_view;
         TextView dateTextView, bodyTextView;
+        ImageView leftImage,rightImage;
 
 
         public MessageViewHolder(View itemView) {
@@ -249,6 +265,8 @@ public class Messaging extends AppCompatActivity {
             parent_layout_view = (View) itemView.findViewById(R.id.message_cell_parent);
             dateTextView = (TextView) itemView.findViewById(R.id.message_cell_date);
             bodyTextView = (TextView) itemView.findViewById(R.id.message_cell_main_message);
+            leftImage = (ImageView)itemView.findViewById(R.id.left_ImageView);
+            rightImage = (ImageView)itemView.findViewById(R.id.right_ImageView);
         }
 
     }
@@ -275,9 +293,10 @@ public class Messaging extends AppCompatActivity {
                     }
                 }
             });
+            parentView.setBackgroundResource(R.color.trans);
+            parentView.setAlpha((float) 0.3);
             my_recyclreView.setAlpha(0);
-            teacherImage.setAlpha(0);
-            teacherTextView.setAlpha(0);
+            dataEnteringView.setAlpha(0);
         }
 
         return super.onKeyDown(keyCode, event);

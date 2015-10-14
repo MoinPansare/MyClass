@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Created by macpro on 8/17/15.
  */
-public class GalleryData implements Parcelable{
+public class GalleryData implements Parcelable {
+    int eventId;
     String eventTitle;
     int totalImages;
     String primaryUrl,secondaryUrl,terniaryUrl;
@@ -21,6 +22,7 @@ public class GalleryData implements Parcelable{
 
 
     protected GalleryData(Parcel in) {
+        eventId = in.readInt();
         eventTitle = in.readString();
         totalImages = in.readInt();
         primaryUrl = in.readString();
@@ -48,6 +50,7 @@ public class GalleryData implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(eventId);
         dest.writeString(eventTitle);
         dest.writeInt(totalImages);
         dest.writeString(primaryUrl);

@@ -7,10 +7,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +23,20 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import connect.qaagility.com.myclass.Data.URLSingelton;
 
 public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.someListData,NavigationDrawerFragment.topViewClick {
 
@@ -33,9 +46,12 @@ public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.some
 
     private Toolbar toolbar;
     private RecyclerView mainRecyclerView;
+    private SwipeRefreshLayout swipeContainer;
 
-    private List<NewsFeedsData> AllData = Collections.emptyList();
+    private List<NewsFeedsData> AllData = new ArrayList<>();
     private LiveFeedsAdapter myAdapter;
+
+    URLSingelton mySingelton = URLSingelton.getMy_SingeltonData_Reference();
 
 
     @Override
@@ -44,6 +60,21 @@ public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.some
         requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_feed);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainerLiveFeeds);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                refreshTheData();
+            }
+        });
+
+
+
         mainParent = (View)findViewById(R.id.main_Parent);
         toolbar = (Toolbar)findViewById(R.id.app_bar);
 //        toolbar.setAlpha(0);
@@ -65,11 +96,17 @@ public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.some
         navFragment.settopViewClick(this);
 
         mainRecyclerView = (RecyclerView)findViewById(R.id.rv);
-        AllData = getData();
-
+//        AllData = getData();
         myAdapter = new LiveFeedsAdapter(this,AllData);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAdapter.setsomeListData(this);
+
+        if (AllData.size()==0){
+            swipeContainer.setRefreshing(true);
+            getData();
+        }
+
+
 
 
 
@@ -81,7 +118,7 @@ public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.some
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mainParent.setBackgroundResource(R.drawable.login_background);
+//                mainParent.setBackgroundResource(R.drawable.login_background);
                 mainRecyclerView.setAdapter(myAdapter);
             }
 
@@ -115,44 +152,102 @@ public class liveFeed extends AppCompatActivity implements LiveFeedsAdapter.some
         return super.onOptionsItemSelected(item);
     }
 
-    public static List<NewsFeedsData> getData() {
-        //load only static data inside a drawer
-        List<NewsFeedsData> data = new ArrayList<>();
-        String[] titles = {"News Board","Assignments","Messages","Notifications","Photos"};
-        String[] dates = {"1/8/2015","2/8/2015","3/8/2015","4/8/2015","5/8/2015"};
-        String[] mainBody = {"This is Some Dummy Data Tp Prove Than At Times The Text Might Get Clipped Off And We Might Not Be Able To See The Rest Of The Content, but at times we can see actually what is intended for viewing, but at times we can see actually what is intended for viewing","Assignments","Messages","Notifications","Photos"};
-        String[] additional = {"News Board","Assignments","Messages","Notifications","Photos"};
-        String[] backGroundPriority = {"urgent","normal","normal","urgent","normal"};
-        for (int i = 0; i < 5; i++) {
-            NewsFeedsData current = new NewsFeedsData();
-            current.eventTitle = titles[i % titles.length];
-            current.AddedDate = dates[i % dates.length];
-            current.mainBody = mainBody[i % mainBody.length];
-            current.moreInfo = additional[i % additional.length];
-            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
-            data.add(current);
-        }
-        for (int i = 0; i < 5; i++) {
-            NewsFeedsData current = new NewsFeedsData();
-            current.eventTitle = titles[i % titles.length];
-            current.AddedDate = dates[i % dates.length];
-            current.mainBody = mainBody[i % mainBody.length];
-            current.moreInfo = additional[i % additional.length];
-            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
-            data.add(current);
-        }
-        for (int i = 0; i < 5; i++) {
-            NewsFeedsData current = new NewsFeedsData();
-            current.eventTitle = titles[i % titles.length];
-            current.AddedDate = dates[i % dates.length];
-            current.mainBody = mainBody[i % mainBody.length];
-            current.moreInfo = additional[i % additional.length];
-            current.backgroundColor = backGroundPriority[i % backGroundPriority.length];
-            data.add(current);
+    public void getData() {
+
+
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("index",1);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        return data;
+        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, mySingelton.liveFeedsUrl, params,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+//                        stopLoading();
+//                        NavigateToHomePage(response);
+                        try{
+                            parseResponseIntoStructure(response);
+                        }catch (Exception e){
+
+                        }
+
+
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+//                        stopLoading();
+                        showError("There Was Some Problem Please Try Again After Some Time");
+                    }
+                }
+
+        );
+
+//        startLoading();
+        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(loginRequest);
+        return;
     }
+
+    private void parseResponseIntoStructure(JSONObject myObj) throws JSONException {
+
+        String status = myObj.getString("status");
+        String message = myObj.getString("errorMessage");
+
+        if (status.equalsIgnoreCase("ERROR") || message.length() != 0){
+            showError("There Was Some Problem Please Try Again After Some Time");
+            return;
+        }
+
+        JSONArray jsonArr= myObj.getJSONArray("response");
+//        String[] responseArray = new String[jsonArr.length()];
+//        for(int i=0;i<jsonArr.length();i++){
+//            responseArray[i]=(String)jsonArr.get(i);
+//        }
+
+        for(int i=0;i<jsonArr.length();i++){
+            try{
+                NewsFeedsData current = new NewsFeedsData();
+                JSONObject indexObject = jsonArr.getJSONObject(i);
+                current.eventTitle = indexObject.get("heading").toString();
+                current.AddedDate = indexObject.get("date").toString();
+                current.AddedDate = indexObject.get("date").toString();
+                current.mainBody = indexObject.get("body").toString();
+                current.moreInfo = indexObject.get("body").toString();
+                current.backgroundColor = "urgent";
+                AllData.add(current);
+            }catch (Exception e){
+                Log.d("ed","ed");
+            }
+
+        }
+
+        myAdapter.notifyDataSetChanged();
+        swipeContainer.setRefreshing(false);
+
+
+
+    }
+
+    private void refreshTheData() {
+        Log.d("refreshign","asdasd");
+        getData();
+
+
+    }
+
+    private void showError(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+
 
     @Override
     public void InitiateActivityTransition(TextView textView,View viewSelected,TextView dateTextView,TextView detailTextView,int position) {

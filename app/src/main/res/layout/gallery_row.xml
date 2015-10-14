@@ -18,9 +18,7 @@
         android:layout_margin="10dp"
         android:elevation="10dp">
 
-
-        <ImageView
-            android:id="@+id/parent_imageView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -29,8 +27,21 @@
             android:layout_margin="5dp"
             android:layout_marginRight="2dp"
             android:layout_weight="2"
-            android:elevation="15dp"
-            android:scaleType="fitXY" />
+            android:elevation="15dp">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/parent_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,8 +58,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_weight="1"
                 android:elevation="5dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/parent_image" />
+                android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:id="@+id/terniaryImage"
